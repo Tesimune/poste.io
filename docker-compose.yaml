@@ -4,7 +4,7 @@ services:
   mailserver:
     image: analogic/poste.io
     container_name: mailserver
-    hostname: mail.icreationshub.com
+    hostname: ${POSTEO_HOST_NAME}
     environment:
       - TZ=${TZ}
       - POSTEO_DOMAIN=${POSTEO_DOMAIN}
