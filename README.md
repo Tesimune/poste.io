@@ -100,8 +100,8 @@ To monitor service logs:
 
 To enable backups for your Poste.io server, you can follow these guides:
 
-1. [Poste.io with AWS S3 Backup](https://github.com/Tesimune/poste.io/backup/S3)
-2. [Poste.io with R2 Backup](https://github.com/Tesimune/poste.io/backup/R2)
+1. [Poste.io with AWS S3 Backup](https://github.com/Tesimune/poste.io/tree/master/backup/S3)
+2. [Poste.io with R2 Backup](https://github.com/Tesimune/poste.io/tree/master/backup/R2)
 
 ---
 
