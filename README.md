@@ -70,7 +70,7 @@ POSTEO_ADMIN_PASSWORD=your-admin-password
 POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
 POSTEO_HOST_NAME=your-hostname
 ```
-[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
+[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/timezone)
 
 ---
 
@@ -139,6 +139,12 @@ To enable backups for your Poste.io server, you can follow these guides:
 
 1. [Poste.io with AWS S3 Backup](https://github.com/Tesimune/poste.io/tree/main/backup/S3)
 2. [Poste.io with R2 Backup](https://github.com/Tesimune/poste.io/tree/main/backup/R2)
+
+---
+
+### Additional Guid
+[Setup on Coolify.io Instance](https://github.com/Tesimune/poste.io/tree/main/coolify)
+
 
 ---
 

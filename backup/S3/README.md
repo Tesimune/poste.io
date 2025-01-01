@@ -103,7 +103,7 @@ AWS_SECRET_ACCESS_KEY=your-secret-access-key
 AWS_DEFAULT_REGION=your-region
 S3_BUCKET=your-bucket-name
 ```
-[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
+[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/timezone)
 ---
 
 ## Setup
