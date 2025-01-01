@@ -138,6 +138,10 @@ S3_BUCKET=your-bucket-name
 
 Ensure these ports are open in your server firewall.
 
+Update your domain’s DNS records for proper mail delivery:
+- **MX Record**: Points to your server’s IP or hostname.
+- **SPF, DKIM, DMARC**: For better email deliverability.
+  https://poste.io/doc/configuring-dns
 ---
 
 ## Backup Process
