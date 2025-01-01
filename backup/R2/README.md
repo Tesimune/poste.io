@@ -99,7 +99,7 @@ Create a `.env` file in the project directory and populate it with the following
 
 ```env
 # Mail server settings
-TZ=Africa/Lagos
+TZ=UTC
 POSTEO_DOMAIN=your-domain.com
 POSTEO_HOST_NAME=mail.your-domain.com
 POSTEO_ADMIN_PASSWORD=your-admin-password
@@ -220,5 +220,3 @@ To monitor service logs:
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ---
-
-Let me know if you need further adjustments!

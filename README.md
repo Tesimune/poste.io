@@ -1,5 +1,3 @@
-Here is the updated README file with the added `docker-compose` configuration and structured integration for better clarity:
-
 ---
 
 # Poste.io - README.md
@@ -63,10 +61,10 @@ services:
 ## Environment Variables
 
 Create a `.env` file in the project directory and populate it with the following variables:
-
+2. [Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
 ```env
 # Mail server settings
-TZ=Africa/Lagos
+TZ=UTC
 POSTEO_DOMAIN=your-domain.com
 POSTEO_HOST_NAME=mail.your-domain.com
 POSTEO_ADMIN_PASSWORD=your-admin-password
@@ -139,8 +137,8 @@ To monitor service logs:
 
 To enable backups for your Poste.io server, you can follow these guides:
 
-1. [Poste.io with AWS S3 Backup](https://github.com/Tesimune/poste.io/tree/master/backup/S3)
-2. [Poste.io with R2 Backup](https://github.com/Tesimune/poste.io/tree/master/backup/R2)
+1. [Poste.io with AWS S3 Backup](https://github.com/Tesimune/poste.io/tree/main/backup/S3)
+2. [Poste.io with R2 Backup](https://github.com/Tesimune/poste.io/tree/main/backup/R2)
 
 ---
 
@@ -149,5 +147,3 @@ To enable backups for your Poste.io server, you can follow these guides:
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 ---
-
-Let me know if you need further customization!
