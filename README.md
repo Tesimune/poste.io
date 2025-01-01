@@ -61,7 +61,6 @@ services:
 ## Environment Variables
 
 Create a `.env` file in the project directory and populate it with the following variables:
-2. [Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
 ```env
 # Mail server settings
 TZ=UTC
@@ -71,6 +70,7 @@ POSTEO_ADMIN_PASSWORD=your-admin-password
 POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
 POSTEO_HOST_NAME=your-hostname
 ```
+[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
 
 ---
 

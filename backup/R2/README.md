@@ -112,7 +112,7 @@ R2_SECRET_ACCESS_KEY=your-secret-access-key
 R2_BUCKET=your-bucket-name
 R2_ENDPOINT=https://<your-r2-endpoint>
 ```
-
+[Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/TZ)
 ---
 
 ## Setup
