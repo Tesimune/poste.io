@@ -24,6 +24,73 @@ This project sets up a self-hosted **Poste.io** mail server using Docker Compose
 - A **Cloudflare R2 bucket** for storing backups.
 - R2 API credentials with write access to the bucket.
 
+## Docker Compose Configuration
+
+Below is the `docker-compose.yml` file configuration for running Poste.io:
+
+```yaml
+version: '3.8'
+
+services:
+  mailserver:
+    image: analogic/poste.io
+    container_name: mailserver
+    hostname: ${POSTEO_HOST_NAME}
+    environment:
+      - TZ=${TZ}
+      - POSTEO_DOMAIN=${POSTEO_DOMAIN}
+      - POSTEO_ADMIN_PASSWORD=${POSTEO_ADMIN_PASSWORD}
+      - POSTEO_POSTMASTER_PASSWORD=${POSTEO_POSTMASTER_PASSWORD}
+      - POSTEO_SMTP_PORT=25
+      - POSTEO_IMAP_PORT=143
+      - POSTEO_WEBSERVER_PORT=80
+      - POSTEO_HTTP_PORT=80
+    volumes:
+      - ./data:/data
+      - ./mail:/mail
+      - ./certs:/etc/ssl/certs  # Add this for SSL certificates
+    ports:
+      - "25:25"      # SMTP
+      - "143:143"    # IMAP
+      - "88:80"      # Web interface (non-SSL)
+      - "8443:443"    # Web interface (SSL, optional)
+    restart: unless-stopped
+
+  backup:
+    image: amazon/aws-cli:2.13.17
+    container_name: mailserver_backup
+    depends_on:
+      - mailserver
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      R2_ACCOUNT_ID: ${R2_ACCOUNT_ID}
+      R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID}
+      R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY}
+      R2_BUCKET: ${R2_BUCKET}
+      R2_ENDPOINT: ${R2_ENDPOINT}
+      BACKUP_PROVIDER: ${BACKUP_PROVIDER} # Set to 'aws' or 'r2'
+    volumes:
+      - ./data:/data
+      - ./mail:/mail
+    entrypoint: >
+      /bin/sh -c "
+      while true; do
+        TIMESTAMP=$(date +%Y%m%d-%H%M%S);
+        BACKUP_FILE=/tmp/posteio-backup-$TIMESTAMP.tar.gz;
+        tar -czvf $BACKUP_FILE /data /mail;
+        if [ "$BACKUP_PROVIDER" = "aws" ]; then
+          aws s3 cp $BACKUP_FILE s3://$S3_BUCKET/$TIMESTAMP.tar.gz;
+        elif [ "$BACKUP_PROVIDER" = "r2" ]; then
+          aws s3 cp $BACKUP_FILE s3://$R2_BUCKET/$TIMESTAMP.tar.gz --endpoint-url=$R2_ENDPOINT;
+        fi;
+        rm -f $BACKUP_FILE;
+        sleep 86400; # Run backup every 24 hours
+      done"
+
+```
+
 ---
 
 ## Environment Variables
@@ -34,6 +101,7 @@ Create a `.env` file in the project directory and populate it with the following
 # Mail server settings
 TZ=Africa/Lagos
 POSTEO_DOMAIN=your-domain.com
+POSTEO_HOST_NAME=mail.your-domain.com
 POSTEO_ADMIN_PASSWORD=your-admin-password
 POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
 

@@ -1,3 +1,7 @@
+Here is the updated README file with the added `docker-compose` configuration and structured integration for better clarity:
+
+---
+
 # Poste.io - README.md
 
 ## Overview
@@ -9,8 +13,8 @@ This project sets up a self-hosted **Poste.io** mail server using Docker Compose
 ## Features
 
 - **Mail server**:
-  - Fully featured with SMTP, IMAP, and a web interface.
-  - Custom SSL certificates support.
+    - Fully featured with SMTP, IMAP, and a web interface.
+    - Custom SSL certificates support.
 
 ---
 
@@ -20,6 +24,42 @@ This project sets up a self-hosted **Poste.io** mail server using Docker Compose
 
 ---
 
+## Docker Compose Configuration
+
+Below is the `docker-compose.yml` file configuration for running Poste.io:
+
+```yaml
+version: '3.8'
+
+services:
+  mailserver:
+    image: analogic/poste.io
+    container_name: mailserver
+    hostname: ${POSTEO_HOST_NAME}
+    environment:
+      - TZ=${TZ}
+      - POSTEO_DOMAIN=${POSTEO_DOMAIN}
+      - POSTEO_ADMIN_PASSWORD=${POSTEO_ADMIN_PASSWORD}
+      - POSTEO_POSTMASTER_PASSWORD=${POSTEO_POSTMASTER_PASSWORD}
+      - POSTEO_SMTP_PORT=25
+      - POSTEO_IMAP_PORT=143
+      - POSTEO_WEBSERVER_PORT=80
+      - POSTEO_HTTP_PORT=80
+    volumes:
+      - ./data:/data
+      - ./mail:/mail
+      - ./certs:/etc/ssl/certs  # Add this for SSL certificates
+    ports:
+      - "25:25"      # SMTP
+      - "143:143"    # IMAP
+      - "88:80"      # Web interface (non-SSL)
+      - "8443:443"   # Web interface (SSL, optional)
+    restart: unless-stopped
+```
+
+---
+
+
 ## Environment Variables
 
 Create a `.env` file in the project directory and populate it with the following variables:
@@ -28,8 +68,10 @@ Create a `.env` file in the project directory and populate it with the following
 # Mail server settings
 TZ=Africa/Lagos
 POSTEO_DOMAIN=your-domain.com
+POSTEO_HOST_NAME=mail.your-domain.com
 POSTEO_ADMIN_PASSWORD=your-admin-password
 POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
+POSTEO_HOST_NAME=your-hostname
 ```
 
 ---
@@ -52,7 +94,7 @@ POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
    ```
 
 4. **Verify the Setup**:
-   - Access the mail server web interface at `http://<your-server-ip>:88` (non-SSL).
+    - Access the mail server web interface at `http://<your-server-ip>:88` (non-SSL).
 
 ---
 
@@ -72,10 +114,7 @@ Ensure these ports are open in your server firewall.
 To use custom SSL certificates:
 
 1. Place your certificate files in the `./certs` directory.
-2. Map the directory in the `volumes` section of the `docker-compose.yml` file:
-   ```yaml
-   - ./certs:/etc/ssl/certs
-   ```
+2. The `docker-compose.yml` file already maps the `./certs` directory to `/etc/ssl/certs`.
 
 ---
 
