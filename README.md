@@ -68,7 +68,6 @@ POSTEO_DOMAIN=your-domain.com
 POSTEO_HOST_NAME=mail.your-domain.com
 POSTEO_ADMIN_PASSWORD=your-admin-password
 POSTEO_POSTMASTER_PASSWORD=your-postmaster-password
-POSTEO_HOST_NAME=your-hostname
 ```
 [Poste.io Time zone](https://github.com/Tesimune/poste.io/tree/main/timezone)
 
